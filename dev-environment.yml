@@ -7,4 +7,8 @@ dependencies:
   - geopandas
   - ruff
   - timezonefinder
+  - pytest
+  - pip
+  - pip:
+    - e .
 prefix: /home/hammy97/miniconda3/envs/gee2gpd
