@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gee2gpd"
+version = "0.0.0"
+description = "A smiple tool for extracting ee collections to geo data frames"
+authors = [{ name = "Ryan Hamilton", email = "ryan.hamilton@ec.gc.ca" }]
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+dependencies = ["earthengine-api", "geopandas", "timezonefinder"]
+
+[project.scripts]
+gee2gpd = 'gee2gpd.__main__:main'
