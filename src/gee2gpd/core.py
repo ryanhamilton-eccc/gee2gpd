@@ -1,5 +1,5 @@
 import ee
-
+import geopandas as gpd
 
 def img2feat(element: ee.Image) -> ee.feature.Feature:
     """converts image to feature"""
@@ -19,3 +19,23 @@ def ic2fc(
     # convert each element to a feaute ee.List[ee.Feature]
     feat_list = ic_to_list.map(img2feat)
     return ee.FeatureCollection(feat_list)
+
+
+def fc2gdf(feature_collection: ee.FeatureCollection):
+    geojson = feature_collection.getInfo()
+    return gpd.GeoDataFrame.from_features(geojson['features'])
+
+
+def image_collection_to_dataframe(collection: ee.ImageCollection) -> gpd.GeoDataFrame:
+    """converts the collection and converts to geo data frame"""
+    try:
+        data = ic2fc(collection)
+        data = fc2gdf(data)
+    except ee.EEException as e:
+        return e
+
+    return data
+
+
+
+
