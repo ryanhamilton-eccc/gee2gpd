@@ -17,4 +17,4 @@ classifiers = [
 dependencies = ["earthengine-api", "geopandas", "timezonefinder"]
 
 [project.scripts]
-gee2gpd = 'gee2gpd.__main__:main'
+gee2gpd = 'cli:main'
