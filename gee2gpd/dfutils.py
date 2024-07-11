@@ -1,5 +1,3 @@
-import warnings
-
 import geopandas as gpd
 import pandas as pd
 
@@ -10,14 +8,14 @@ from timezonefinder import TimezoneFinder
 
 
 def insert_centroid_xy(df: gpd.GeoDataFrame):
-    df['x'] = df.geometry.centroid.x
-    df['y'] = df.geometry.centroid.y
+    df["x"] = df.geometry.centroid.x
+    df["y"] = df.geometry.centroid.y
     return df
 
 
 def insert_time_zone(df: gpd.GeoDataFrame):
     cols = df.columns.tolist()
-    if 'x' not in cols and 'y' not in cols:
+    if "x" not in cols and "y" not in cols:
         raise ValueError("x,y coordinates of the centroid must be added")
     tf = TimezoneFinder()
     df["timezone"] = df.apply(lambda x: tf.timezone_at(lng=x["x"], lat=x["y"]), axis=1)
@@ -25,10 +23,10 @@ def insert_time_zone(df: gpd.GeoDataFrame):
 
 
 def convert_utc_time(df: gpd.GeoDataFrame, time_col: str) -> gpd.GeoDataFrame:
-    """ converts utc time to local time """
+    """converts utc time to local time"""
     # date time conversion
     cols = df.columns.tolist()
-    if 'timezone' not in cols or time_col not in cols:
+    if "timezone" not in cols or time_col not in cols:
         raise ValueError
 
     df["utc"] = df[time_col] / 1000.0
@@ -47,8 +45,14 @@ def convert_utc_time(df: gpd.GeoDataFrame, time_col: str) -> gpd.GeoDataFrame:
 
 
 def localize_utc(df, time_col: str = None):
-    time_col = time_col or 'system:time_start'
+    time_col = time_col or "system:time_start"
     df = insert_centroid_xy(df)
     df = insert_time_zone(df)
     df = convert_utc_time(df, time_col)
-    return df[[i for i in df.columns.tolist() if i not in ['timestamp', 'utc', 'timezone', 'x', 'y']]]
+    return df[
+        [
+            i
+            for i in df.columns.tolist()
+            if i not in ["timestamp", "utc", "timezone", "x", "y"]
+        ]
+    ]
