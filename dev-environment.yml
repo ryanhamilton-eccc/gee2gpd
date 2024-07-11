@@ -4,6 +4,7 @@ channels:
 dependencies:
   - python=3.12
   - earthengine-api
+  - click
   - geopandas
   - ruff
   - timezonefinder
