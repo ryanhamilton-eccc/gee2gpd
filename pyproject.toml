@@ -13,8 +13,12 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
+dependencies = ["earthengine-api", "geopandas", "timezonefinder", 'click']
 
-dependencies = ["earthengine-api", "geopandas", "timezonefinder"]
+
+[project.scripts]
+gee2gpd = 'gee2gpd.main:main'
+
 
 [project.optional-dependencies]
 dev = ["earthengine-api", "geopandas", "timezonefinder", "build", "ruff"]
