@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "gee2gpd"
-version = "0.1.0"
+version = "0.2.0"
 description = "A smiple tool for extracting ee collections to geo data frames"
 authors = [{ name = "Ryan Hamilton", email = "ryan.hamilton@ec.gc.ca" }]
 readme = "README.md"
